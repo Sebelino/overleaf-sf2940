@@ -6,6 +6,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{dsfont}
 \usepackage[parfill]{parskip}
 \usepackage{sebelino-mathlib} % Custom sty file
 \setcounter{secnumdepth}{0}
@@ -102,15 +103,18 @@ Show that \(\mathcal{A}_1 \cap \mathcal{A}_2\) is a \(\sigma\)-algebra
 of subsets of \(\Omega\).
 
 \textbf{Solution:}
-
+\begin{proof}
 \(\mathcal{A}_1\cap\mathcal{A}_2\) is a \(\sigma\)-algebra all of the following conditions hold:
 \[\Omega \in \mathcal{A}_1\cap\mathcal{A}_2 \tag{I}\]
 \[\forall A\in \mathcal{A}_1\cap \mathcal{A}_2: A^\complement \in \mathcal{A}_1\cap \mathcal{A}_2 \tag{II}\]
 \[\forall (A_n)_{n=1}^\infty\subseteq \mathcal{A}_1\cap \mathcal{A}_2: \bigcup_{n=1}^\infty A_n \in \mathcal{A}_1\cap \mathcal{A}_2 \tag{III}\]
 
+To show these, we make use of the general rule:
+\[x\in A \wedge x\in B \Leftrightarrow x\in A\cap B\]
+
 Property (I):
 \begin{align*}
-	& \mathcal{A}_1 \text{ is }\sigma\text{-algebra} \wedge \mathcal{A}_2 \text{ is }\sigma\text{-algebra} \\
+	& \mathcal{A}_1\ \sigma\text{-algebra} \wedge \mathcal{A}_2\ \sigma\text{-algebra} \\
 	\Rightarrow& \Omega \in \mathcal{A}_1 \wedge \Omega \in \mathcal{A}_2 \\
 	\Rightarrow& \Omega \in \mathcal{A}_1 \cap \mathcal{A}_2 \\
 \end{align*}
@@ -118,37 +122,53 @@ Property (I):
 Property (II):
 
 Let \(A \in \mathcal{A}_1 \cap \mathcal{A}_2\).
-
-Then \(A \in \mathcal{A}_1\) and \(A \in \mathcal{A}_2\).
-
-Then \(A^\complement \in \mathcal{A}_1\) and \(A^\complement \in \mathcal{A}_2\).
-
-Then \(A^\complement \in \mathcal{A}_1\) and \(A^\complement \in \mathcal{A}_2\).
-
-Then \(A^\complement \in \mathcal{A}_1\cap \mathcal{A}_2\).
-
-So \(\forall A\in \mathcal{A}_1\cap\mathcal{A}_2 : A^\complement\in \mathcal{A}_1\cap\mathcal{A}_2\).
+\begin{align*}
+    & A \in \mathcal{A}_1\cap \mathcal{A}_2 \\
+    \Rightarrow & A \in \mathcal{A}_1\ \wedge\ A \in \mathcal{A}_2 \\
+    \Rightarrow & A^\complement \in \mathcal{A}_1\ \wedge\ A^\complement \in \mathcal{A}_1 & (\text{ since }\mathcal{A}_1,\mathcal{A}_2\ \sigma\text{-algebras}) \\
+    \Rightarrow & A^\complement \in \mathcal{A}_1\cap\mathcal{A}_2 \\
+\end{align*}
+\[\therefore \forall A\in \mathcal{A}_1\cap \mathcal{A}_2: A^\complement\in\mathcal{A}_1\cap \mathcal{A}_2\]
 
 Property (III):
 
-Let \((A_n)_{n=1}^\infty\) be a sequence of sets such that
-\[\bigwedge_{n=1}^\infty A_n\in \mathcal{A}_1\cap\mathcal{A}_2\]
+Let \((A_n)_{n=1}^\infty\subseteq \mathcal{A}_1\cap \mathcal{A}_2\).
 
-Then \(A_n\in \mathcal{A}_1\) and \(A_n\in \mathcal{A}_2\), for each \(A_n\).
-\[\bigwedge_{n=1}^\infty A_n\in \mathcal{A}_1\]
+\begin{align*}
+    & (A_n)_{n=1}^\infty\subseteq \mathcal{A}_1\cap \mathcal{A}_2 \\
+    & (A_n)_{n=1}^\infty\subseteq \mathcal{A}_1\ \wedge\ (A_n)_{n=1}^\infty\subseteq \mathcal{A}_2 \\
+    & \bigcup_{n=1}^\infty A_n \in \mathcal{A}_1\ \wedge\ \bigcup_{n=1}^\infty A_n \in \mathcal{A}_2 \\
+    & \bigcup_{n=1}^\infty A_n \in \mathcal{A}_1\cap\mathcal{A}_2 \\
+\end{align*}
+\[\therefore \forall (A_n)_{n=1}^\infty \subseteq \mathcal{A}_1\cap\mathcal{A}_2: \bigcup_{n=1}^\infty A_n\in \mathcal{A}_1\cap \mathcal{A_2}\]
 
-Suppose
-An in A1 cap A2, n=1,2,3,...
+Since all three properties hold, \(\mathcal{A}_1\cap\mathcal{A}_2\) is a \(\sigma\)-algebra.
+\end{proof}
 
-Then An in A1 and An in A2
+\section{Timo Example 1.5.1, p.26 [draft]}
 
-Then
-\(\cup_{n=1}^\infty A_n \in A_1\)
-\(\cup_{n=1}^\infty A_n \in A_2\)
-so
-\(\cup_{n=1}^\infty A_n \in A_1 \cap A_2\)
+Let \((\Omega,\mathcal{A},P)\) be a probability space.
+Let \(A\in \mathcal{A}\). Consider the indicator function of \(A\):
+\[\mathds{1}_A=\casesiie{1}{\omega\in A}{0}{\omega\notin A}\]
+Show that \(\mathds{1}_A\) is a random variable.
 
-\section{Exercise 2.23.4.7 (Markov's inequality)}
+\textbf{Solution:}
+\begin{proof}
+\(\mathds{1}\) is a random variable if \(\mathds{1}\) is a measurable function.
+
+\(\mathds{1}_A\) is a measurable function w.r.t. Borel space \((\mathbb{R}, \mathcal{B})\) if
+\[\forall B \in \mathcal{B}: \mathds{1}_A^{-1}(B)\in \mathcal{A}\]
+Let \(B \in \mathcal{B}\).
+\begin{align*}
+     & \mathds{1}^{-1}(B) \\
+    =& \{\omega\in\Omega:\mathds{1}_A(\omega)\in B\} \\
+    =& \{\omega\in\Omega:\casesiie{1}{\omega\in A}{0}{\omega\notin A}\in B\} \\
+    =& \{\omega\in\Omega:(1\in B\wedge \omega\in A)\vee (0\in B\wedge \omega \notin A)\} \\
+    =& \begin{cases}A\text{ if }0\in B\wedge 1\in B\\B\\C\\D\end{cases} \\
+\end{align*}
+\end{proof}
+
+\section{Exercise 2.23.4.7 (Markov's inequality) [draft]}
 
 Suppose that \(X\) is a random variable
 such that \(P(X\geq 0) = P(\{\omega : X(\omega)\geq 0\})=1\)
@@ -161,29 +181,29 @@ Show that
 Use indicator function
 
 For \(A\in \mathcal{A}\) the indicator function of \(A\)
-is the random variable \(\mathbb{1}_A(\omega)=\casesii{1}{\omega\in A}{0}\)
+is the random variable \(\mathds{1}_A(\omega)=\casesii{1}{\omega\in A}{0}\)
 
 \begin{proof}
 
 Observe:
 
-	\[E[\mathbb{1}_A] = 0 \cdot P(\mathbb{1}=0)+1\cdot P(\mathbb{1}=1)\]
-	\[ = P(\{\omega\in\Omega : \mathbb{1}(\omega)=1\})\]
+	\[E[\mathds{1}_A] = 0 \cdot P(\mathds{1}=0)+1\cdot P(\mathds{1}=1)\]
+	\[ = P(\{\omega\in\Omega : \mathds{1}(\omega)=1\})\]
 	\[ = P(A)\]
 
 Let
 \[E_C = \{\omega: X(\omega)\geq c\} = X^{-1}([c,\infty))\}\]
 , measurable.
 
-\[P(X\geq c) = P(E_C)=E[\mathbb{1}_{E_C}]\]
+\[P(X\geq c) = P(E_C)=E[\mathds{1}_{E_C}]\]
 
 \[E[X] \geq E[Y]\]
 
-\[P(X\geq c) = \frac1c E[c\mathbb{1}_{E_C}] = \frac1c E[X]]\]
+\[P(X\geq c) = \frac1c E[c\mathds{1}_{E_C}] = \frac1c E[X]]\]
 
 \end{proof}
 
-\section{Extra1}
+\section{Extra1 [draft]}
 
 Let \(\mathcal{B}(\mathbb{R})\) be the Borel algebra on \(\mathbb{R}\)
 defined by \(\mathcal{B}(\mathbb{R})=\sigma(\{(a,b): a<b \in \mathbb{R}\})\).
@@ -324,7 +344,7 @@ Let \(X\) be a random variable with continuous distribution whose CDF is given b
 	=& \frac{2}{9} \\
 \end{align*}
 
-\section{Quiz 1.7}
+\section{Quiz 1.7 [draft]}
 
 Consider the Monty Hall problem.
 
@@ -345,13 +365,13 @@ the car behind it. So:
 \[\forall k: P(O_{k+2}|C_k) = \frac12\]
 where \(k+1\) and \(k+2\) are modulo 3.
 
-\section{Misc problem 1}
+\section{Misc problem 1 [draft]}
 
 Prove \(P(a < X \leq b) = F_X(b)-F_X(b)\).
 
 \textbf{Solution:}
 
-\section{Exercise 2.6.2.4}
+\section{Exercise 2.6.2.4 [draft]}
 
 \(X=^dY\) if \(P(X\leq z)=P(Y\leq z)\).
 
@@ -371,7 +391,7 @@ Show that \(X=^d-X\).
 
 Hence, \(X\) symmetric distribution.
 
-\section{Exercise 2.6.2.5}
+\section{Exercise 2.6.2.5 [draft]}
 
 \(Z\sim \mathcal{N}(\mu, \sigma^2)\)
 and \(X=e^Z\).
@@ -397,7 +417,7 @@ Let \(z>0\).
 
 (Limit becomes \(-\infty\) because log(0) approaches negative infinity)
 
-\section{Exercise 2.6.3.1}
+\section{Exercise 2.6.3.1 [draft]}
 
 The continuous bivariate r.v. \((X,Y)\) has PDF
 \[f_{X,Y}(x,y)=\casesii{1}{-y<x<y \wedge 0<y<1}{0}\]
@@ -448,7 +468,7 @@ Then \(f_{X,Y}(x,y)=f_X(x)f_Y(y)\)
 
 Assume \(|x|<1\) (so denominator doesnt become 0).
 
-\[f_Y(y)=\frac{\mathbb{1}_{|x|, 1}(y)}{1-|x|}\]
+\[f_Y(y)=\frac{\mathds{1}_{|x|, 1}(y)}{1-|x|}\]
 
 But tis expression is a function of \(x\), so contradiction.
 
@@ -456,7 +476,7 @@ And \(f_Y(y)=2y\), so it cannot be equal to the expression above.
 
 Another way is to just compare the values of \(f_{X,Y}(x,y)\) vs \(f_X(x)f_Y(y)\).
 
-\section{Exercise 2.6.3.17}
+\section{Exercise 2.6.3.17 [draft]}
 
 Multivariate random variable \((X,Y)\) with joint PDF:
 \[f_{X,Y}(x,y)=\casesii{\frac{2}{(1+x+y)^3}}{x>0\wedge y>0}{0}\]
