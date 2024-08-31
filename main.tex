@@ -145,11 +145,11 @@ Let \((A_n)_{n=1}^\infty\subseteq \mathcal{A}_1\cap \mathcal{A}_2\).
 Since all three properties hold, \(\mathcal{A}_1\cap\mathcal{A}_2\) is a \(\sigma\)-algebra.
 \end{proof}
 
-\section{Timo Example 1.5.1, p.26 [draft]}
+\section{Timo Example 1.5.1, p.26}
 
 Let \((\Omega,\mathcal{A},P)\) be a probability space.
 Let \(A\in \mathcal{A}\). Consider the indicator function of \(A\):
-\[\mathds{1}_A=\casesiie{1}{\omega\in A}{0}{\omega\notin A}\]
+\[\mathds{1}_A(\omega)=\casesiie{1}{\omega\in A}{0}{\omega\notin A}\]
 Show that \(\mathds{1}_A\) is a random variable.
 
 \textbf{Solution:}
@@ -160,12 +160,62 @@ Show that \(\mathds{1}_A\) is a random variable.
 \[\forall B \in \mathcal{B}: \mathds{1}_A^{-1}(B)\in \mathcal{A}\]
 Let \(B \in \mathcal{B}\).
 \begin{align*}
-     & \mathds{1}^{-1}(B) \\
+     & \mathds{1}^{-1}_A(B) \\
     =& \{\omega\in\Omega:\mathds{1}_A(\omega)\in B\} \\
     =& \{\omega\in\Omega:\casesiie{1}{\omega\in A}{0}{\omega\notin A}\in B\} \\
     =& \{\omega\in\Omega:(1\in B\wedge \omega\in A)\vee (0\in B\wedge \omega \notin A)\} \\
-    =& \begin{cases}A\text{ if }0\in B\wedge 1\in B\\B\\C\\D\end{cases} \\
+    =& \begin{cases}
+    \{\omega\in\Omega:(1\in B\wedge \omega\in A)\vee (0\in B\wedge \omega \notin A)\}&\text{ if }0\in B\wedge 1\in B\\
+    \{\omega\in\Omega:(1\in B\wedge \omega\in A)\vee (0\in B\wedge \omega \notin A)\}&\text{ if }0\in B\wedge 1\notin B\\
+    \{\omega\in\Omega:(1\in B\wedge \omega\in A)\vee (0\in B\wedge \omega \notin A)\}&\text{ if }0\notin B\wedge 1\in B\\
+    \{\omega\in\Omega:(1\in B\wedge \omega\in A)\vee (0\in B\wedge \omega \notin A)\}&\text{ if }0\notin B\wedge 1\notin B
+    \end{cases} \\
+    =& \begin{cases}
+    \{\omega\in\Omega:((1\in B\wedge \omega\in A)\vee (0\in B\wedge \omega \notin A))\wedge (0\in B\wedge 1\in B)\}&\text{ if }0\in B\wedge 1\in B\\
+    \{\omega\in\Omega:((1\in B\wedge \omega\in A)\vee (0\in B\wedge \omega \notin A))\wedge (0\in B\wedge 1\notin B)\}&\text{ if }0\in B\wedge 1\notin B\\
+    \{\omega\in\Omega:((1\in B\wedge \omega\in A)\vee (0\in B\wedge \omega \notin A))\wedge (0\notin B\wedge 1\in B)\}&\text{ if }0\notin B\wedge 1\in B\\
+    \{\omega\in\Omega:((1\in B\wedge \omega\in A)\vee (0\in B\wedge \omega \notin A))\wedge (0\notin B\wedge 1\notin B)\}&\text{ if }0\notin B\wedge 1\notin B
+    \end{cases} \\
+    =& \begin{cases}
+    \{\omega\in\Omega:(0\in B \wedge 1\in B\wedge \omega\in A)\vee (0\in B\wedge 1\in B\wedge \omega \notin A)\}&\text{ if }0\in B\wedge 1\in B\\
+    \{\omega\in\Omega:(0\in B \wedge 1\in B\wedge1\notin B\wedge \omega\in A)\vee (0\in B\wedge 1\notin B\wedge \omega \notin A)\}&\text{ if }0\in B\wedge 1\notin B\\
+    \{\omega\in\Omega:(0\notin B\wedge 1\in B\wedge \omega\in A)\vee (0\notin B \wedge 0\in B\wedge \omega \notin A)\}&\text{ if }0\notin B\wedge 1\in B\\
+    \{\omega\in\Omega:(0\notin B\wedge 1\notin B \wedge 1\in B\wedge \omega\in A)\vee (0\notin B\wedge 1\notin B \wedge 0\in B\wedge \omega \notin A)\}&\text{ if }0\notin B\wedge 1\notin B
+    \end{cases} \\
+    =& \begin{cases}
+    \{\omega\in\Omega:(\omega\in A)\vee (\omega \notin A)\}&\text{ if }0\in B\wedge 1\in B\\
+    \{\omega\in\Omega:\bot\vee (\omega \notin A)\}&\text{ if }0\in B\wedge 1\notin B\\
+    \{\omega\in\Omega:(\omega\in A)\vee \bot\}&\text{ if }0\notin B\wedge 1\in B\\
+    \{\omega\in\Omega:\bot\vee \bot\}&\text{ if }0\notin B\wedge 1\notin B
+    \end{cases} \\
+    =& \begin{cases}
+    \{\omega\in\Omega:\omega\in A\cup A^\complement\}&\text{ if }0\in B\wedge 1\in B\\
+    \{\omega\in\Omega:\omega \notin A\}&\text{ if }0\in B\wedge 1\notin B\\
+    \{\omega\in\Omega:\omega\in A\}&\text{ if }0\notin B\wedge 1\in B\\
+    \{\omega\in\Omega:\bot\}&\text{ if }0\notin B\wedge 1\notin B
+    \end{cases} \\
+    =& \begin{cases}
+    \{\omega\in\Omega:\omega\in \Omega\}&\text{ if }0\in B\wedge 1\in B\\
+    \{\omega\in\Omega:\omega \in A^\complement\}&\text{ if }0\in B\wedge 1\notin B\\
+    \{\omega\in\Omega:\omega\in A\}&\text{ if }0\notin B\wedge 1\in B\\
+    \{\omega\in\Omega:\bot\}&\text{ if }0\notin B\wedge 1\notin B
+    \end{cases} \\
+    =& \begin{cases}
+    \Omega &\text{ if }0\in B\wedge 1\in B\\
+    A^\complement&\text{ if }0\in B\wedge 1\notin B\\
+    A&\text{ if }0\notin B\wedge 1\in B\\
+    \varnothing&\text{ if }0\notin B\wedge 1\notin B
+    \end{cases}
 \end{align*}
+Since \(\mathcal{A}\) is a \(\sigma\)-algebra and \(A\in \mathcal{A}\), \(\{\Omega, A^\complement, A, \varnothing\}\subseteq \mathcal{A}\).
+
+So \(\mathrm{img}(\mathds{1}_A^{-1}) \subseteq \mathcal{A}\).
+
+Since \(\mathrm{img}(\mathds{1}_A^{-1})\subseteq \mathcal{A}\), \(\mathds{1}_A^{-1}(B)\in \mathcal{A}\).
+\[\therefore \forall B\in \mathcal{B}: \mathds{1}_A^{-1}(B)\in \mathcal{A}\]
+So \(\mathds{1}_A\) is a measurable function.
+
+So \(\mathds{1}_A\) is a random variable.
 \end{proof}
 
 \section{Exercise 2.23.4.7 (Markov's inequality) [draft]}
