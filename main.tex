@@ -8,12 +8,17 @@
 \usepackage{amsthm}
 \usepackage{dsfont}
 \usepackage[parfill]{parskip}
+\usepackage{hyperref} % Clickable ToC
+\hypersetup{colorlinks}
+
 \usepackage{sebelino-mathlib} % Custom sty file
 \setcounter{secnumdepth}{0}
 \begin{document}
 \maketitle
+\tableofcontents
 
-\section{Quiz 1.2}
+\section{Quizzes}
+\subsection{Quiz 1.2}
 
 Let \((\Omega, \mathcal{A}, P)\) be a probability space.
 Let \(A\in \mathcal{A}\) and \(B\in \mathcal{A}\)
@@ -56,96 +61,133 @@ Yes.
 	=& P(B)-P(A) & (\text{ since }A\subseteq B) \\
 \end{align*}
 \end{proof}
+\subsection{Quiz 1.3}
 
-\section{Exercise 1.12.2.9}
+Let \((\Omega, \mathcal{A}, P)\) be a probability space.
+Let \(A\in \mathcal{A}\) and \(B\in \mathcal{A}\).
 
-Suppose \(A,B \in \mathcal{A}\).
+Let \(P((A\cup B)^\complement)=0.5\).
 
-Show that
-\[\min(P(A),P(B)) \geq P(A\cap B) \geq P(A)+P(B)-1\]
+Let \(P(A\cap B)=0.2\).
+
+What is the probability that either A or B but not both will occur?
+
+\textbf{Solution:}
+
+\begin{align*}
+	 & P((A\cup B)\setminus(A\cap B)) \\
+	=& P(A\cup B)-P(A\cap B) & (\text{ since }A\cap B \subseteq A\cup B) \\
+	=& P(A\cup B)-0.2 \\
+	=& 1-P((A \cup B)^\complement)-0.2 \\
+	=& 1-0.5-0.2 \\
+	=& 0.3 \\
+\end{align*}
+
+\subsection{Quiz 1.5}
+
+Assume
+\(P(A) \geq 1-\delta\) and \(P(B) \geq 1-\delta\) for some small \(\delta\geq0\).
+
+Show that \(P(A\cap B) \geq 1-2\delta\).
 
 \textbf{Solution:}
 
-We first need to show that
-\[\min(P(A), P(B)) \geq P(A \cap B)\]
-
-\begin{proof}
-Monotonicity theorem:
-\[\forall A,B\in \mathcal{A}: (A\subseteq B \Rightarrow P(A)\leq P(B))\]
-
-Since \(A\cap B \subseteq A\), \(P(A\cap B) \leq P(A)\).
-
-Since \(A\cap B \subseteq B\), \(P(A\cap B) \leq P(B)\).
-
 \begin{align*}
-	 & P(A\cap B)\leq P(A) \wedge P(A\cap B)\leq P(B) \\
-	\Rightarrow & P(A \cap B) \leq \min(P(A), P(B))
+	 & P(A\cup B) \\
+	=& P(A)+P(B)-P(A\cap B) \\
+	\Rightarrow& \\
+	 & P(A\cap B) \\
+	=& P(A)+P(B)-P(A\cup B) \\
+	\geq& (1-\delta)+P(B)-P(A\cup B) & (\text{since }P(A) \geq 1-\delta) \\
+	\geq& (1-\delta)+(1-\delta)-P(A\cup B) & (\text{since }P(B) \geq 1-\delta) \\
+	\geq& (1-\delta)+(1-\delta)-1 & (\text{since }P(A\cup B) \leq 1) \\
+	=& 1-2\delta
 \end{align*}
-\end{proof}
 
-Next, we show that
-\[P(A \cap B) \geq P(A)+P(B)-1\]
+\subsection{Quiz 1.6}
 
-\begin{proof}
-\begin{align*}
-	 & P(A \cap B) \\
-	=& P(A)+P(B)-P(A \cup B) \\
-	\geq& P(A)+P(B)-1 & (\text{ since } P(B)\leq 1) \\
-\end{align*}
-\end{proof}
+Let \(X\) be a random variable with continuous distribution whose CDF is given by
+\[F_X(x) = \begin{cases}
+	0 &\text{ if } x\leq 0 \\
+	cx^2 &\text{ if } 0<x<2 \\
+	1 &\text{ if } x \geq 2 \\
+\end{cases}\]
 
-\section{Exercise 1.12.3.10}
-
-Suppose \(\mathcal{A}_1\), \(\mathcal{A}_2\) are \(\sigma\)-algebras
-of subsets of \(\Omega\).
-
-Show that \(\mathcal{A}_1 \cap \mathcal{A}_2\) is a \(\sigma\)-algebra
-of subsets of \(\Omega\).
+\textbf{a)} Determine the constant \(c\).
 
 \textbf{Solution:}
-\begin{proof}
-\(\mathcal{A}_1\cap\mathcal{A}_2\) is a \(\sigma\)-algebra all of the following conditions hold:
-\[\Omega \in \mathcal{A}_1\cap\mathcal{A}_2 \tag{I}\]
-\[\forall A\in \mathcal{A}_1\cap \mathcal{A}_2: A^\complement \in \mathcal{A}_1\cap \mathcal{A}_2 \tag{II}\]
-\[\forall (A_n)_{n=1}^\infty\subseteq \mathcal{A}_1\cap \mathcal{A}_2: \bigcup_{n=1}^\infty A_n \in \mathcal{A}_1\cap \mathcal{A}_2 \tag{III}\]
 
-To show these, we make use of the general rule:
-\[x\in A \wedge x\in B \Leftrightarrow x\in A\cap B\]
-
-Property (I):
-\begin{align*}
-	& \mathcal{A}_1\ \sigma\text{-algebra} \wedge \mathcal{A}_2\ \sigma\text{-algebra} \\
-	\Rightarrow& \Omega \in \mathcal{A}_1 \wedge \Omega \in \mathcal{A}_2 \\
-	\Rightarrow& \Omega \in \mathcal{A}_1 \cap \mathcal{A}_2 \\
-\end{align*}
-
-Property (II):
-
-Let \(A \in \mathcal{A}_1 \cap \mathcal{A}_2\).
-\begin{align*}
-    & A \in \mathcal{A}_1\cap \mathcal{A}_2 \\
-    \Rightarrow & A \in \mathcal{A}_1\ \wedge\ A \in \mathcal{A}_2 \\
-    \Rightarrow & A^\complement \in \mathcal{A}_1\ \wedge\ A^\complement \in \mathcal{A}_1 & (\text{ since }\mathcal{A}_1,\mathcal{A}_2\ \sigma\text{-algebras}) \\
-    \Rightarrow & A^\complement \in \mathcal{A}_1\cap\mathcal{A}_2 \\
-\end{align*}
-\[\therefore \forall A\in \mathcal{A}_1\cap \mathcal{A}_2: A^\complement\in\mathcal{A}_1\cap \mathcal{A}_2\]
-
-Property (III):
-
-Let \((A_n)_{n=1}^\infty\subseteq \mathcal{A}_1\cap \mathcal{A}_2\).
+\(F_X(2)=1\). Since \(X\) is a continuous r.v., \(F_X\) is continuous. So:
 
 \begin{align*}
-    & (A_n)_{n=1}^\infty\subseteq \mathcal{A}_1\cap \mathcal{A}_2 \\
-    & (A_n)_{n=1}^\infty\subseteq \mathcal{A}_1\ \wedge\ (A_n)_{n=1}^\infty\subseteq \mathcal{A}_2 \\
-    & \bigcup_{n=1}^\infty A_n \in \mathcal{A}_1\ \wedge\ \bigcup_{n=1}^\infty A_n \in \mathcal{A}_2 \\
-    & \bigcup_{n=1}^\infty A_n \in \mathcal{A}_1\cap\mathcal{A}_2 \\
+	 & \lim_{x\uparrow 2}F_X(x)=1 \\
+	\Rightarrow & c\cdot 2^2=1 \\
+	\Rightarrow & c=\frac14 \\
 \end{align*}
-\[\therefore \forall (A_n)_{n=1}^\infty \subseteq \mathcal{A}_1\cap\mathcal{A}_2: \bigcup_{n=1}^\infty A_n\in \mathcal{A}_1\cap \mathcal{A_2}\]
 
-Since all three properties hold, \(\mathcal{A}_1\cap\mathcal{A}_2\) is a \(\sigma\)-algebra.
-\end{proof}
+\textbf{b)} Compute \(Var(X)\).
 
-\section{Timo Example 1.5.1, p.26}
+\textbf{Solution:}
+
+\begin{align*}
+	 & f_X(x) \\
+	=& \frac{d}{dx}F_X(x) \\
+	=& \frac{d}{dx}\casesiii{0}{x\leq 0}{cx^2}{0<x<2}{1} \\
+	=& \casesiii{0}{x\leq 0}{2cx}{0<x<2}{0} \\
+	=& \casesiii{0}{x\leq 0}{\frac12x}{0<x<2}{0} \\
+	=& \casesii{\frac12x}{0<x<2}{0} \\
+\end{align*}
+\begin{align*}
+	 & E[X] \\
+	=& \int_{-\infty}^\infty x f_X(x)dx \\
+	=& \int_{-\infty}^\infty x \casesii{\frac12x}{0<x<2}{0}dx \\
+	=& \int_{0}^2 x \frac12x dx \\
+	=& \int_{0}^2 \frac12x^2 dx \\
+	=& \frac16\hakparen{x^3}_0^2 dx \\
+	=& \frac16(2^3-0^3) \\
+	=& \frac{4}{3} \\
+\end{align*}
+\begin{align*}
+	 & E[X^2] \\
+	=& \int_{-\infty}^\infty x^2 f_X(x)dx \\
+	=& \int_{-\infty}^\infty x^2 \casesii{\frac12x}{0<x<2}{0}dx \\
+	=& \int_{0}^2 x^2 \frac12x dx \\
+	=& \int_{0}^2 \frac12x^3 dx \\
+	=& \frac18\hakparen{x^4}_0^2 \\
+	=& \frac18(2^4-0^4) \\
+	=& 2 \\
+\end{align*}
+\begin{align*}
+	 & Var(X) \\
+	=& E[X^2]-E[X]^2 \\
+	=& 2-\left(\frac{4}{3}\right)^2 \\
+	=& \frac{18}{9}-\frac{16}{9} \\
+	=& \frac{2}{9} \\
+\end{align*}
+
+\subsection{Quiz 1.7 [draft]}
+
+Consider the Monty Hall problem.
+
+Prove that the probability to win the car if you switch doors is 2/3.
+
+\textbf{Solution:}
+
+Let \(C_k\) be the event that the car lies behind door \(k\), where \(k\in \{1,2,3\}\).
+Then
+\[\forall k: P(C_k)=\frac13\]
+
+Let \(O_k\) be the event that the host opens door \(k\), where \(k\in \{1,2,3\}\).
+
+The host will always open a door with a goat behind it, and never a door with
+the car behind it. So:
+\[\forall k: P(O_k|C_k) = 0\]
+\[\forall k: P(O_{k+1}|C_k) = \frac12\]
+\[\forall k: P(O_{k+2}|C_k) = \frac12\]
+where \(k+1\) and \(k+2\) are modulo 3.
+
+\section{Timo Koski problems}
+\subsection{Example 1.5.1, p.26}
 
 Let \((\Omega,\mathcal{A},P)\) be a probability space.
 Let \(A\in \mathcal{A}\). Consider the indicator function of \(A\):
@@ -218,7 +260,44 @@ So \(\mathds{1}_A\) is a measurable function.
 So \(\mathds{1}_A\) is a random variable.
 \end{proof}
 
-\section{Exercise 2.23.4.7 (Markov's inequality) [draft]}
+\subsection{Exercise 1.12.2.9}
+
+Suppose \(A,B \in \mathcal{A}\).
+
+Show that
+\[\min(P(A),P(B)) \geq P(A\cap B) \geq P(A)+P(B)-1\]
+
+\textbf{Solution:}
+
+We first need to show that
+\[\min(P(A), P(B)) \geq P(A \cap B)\]
+
+\begin{proof}
+Monotonicity theorem:
+\[\forall A,B\in \mathcal{A}: (A\subseteq B \Rightarrow P(A)\leq P(B))\]
+
+Since \(A\cap B \subseteq A\), \(P(A\cap B) \leq P(A)\).
+
+Since \(A\cap B \subseteq B\), \(P(A\cap B) \leq P(B)\).
+
+\begin{align*}
+	 & P(A\cap B)\leq P(A) \wedge P(A\cap B)\leq P(B) \\
+	\Rightarrow & P(A \cap B) \leq \min(P(A), P(B))
+\end{align*}
+\end{proof}
+
+Next, we show that
+\[P(A \cap B) \geq P(A)+P(B)-1\]
+
+\begin{proof}
+\begin{align*}
+	 & P(A \cap B) \\
+	=& P(A)+P(B)-P(A \cup B) \\
+	\geq& P(A)+P(B)-1 & (\text{ since } P(B)\leq 1) \\
+\end{align*}
+\end{proof}
+
+\subsection{Exercise 1.12.3.6, p.45}
 
 Suppose that \(X\) is a random variable
 such that \(P(X\geq 0) = P(\{\omega : X(\omega)\geq 0\})=1\)
@@ -226,222 +305,127 @@ such that \(P(X\geq 0) = P(\{\omega : X(\omega)\geq 0\})=1\)
 Show that
 \[(\forall c>0): P(X\geq c) \leq \frac{E[X]}{c}\]
 
-\textbf{Solution:}
-
-Use indicator function
-
-For \(A\in \mathcal{A}\) the indicator function of \(A\)
-is the random variable \(\mathds{1}_A(\omega)=\casesii{1}{\omega\in A}{0}\)
+\textbf{Solution 1:}
 
 \begin{proof}
-
-Observe:
-
-	\[E[\mathds{1}_A] = 0 \cdot P(\mathds{1}=0)+1\cdot P(\mathds{1}=1)\]
-	\[ = P(\{\omega\in\Omega : \mathds{1}(\omega)=1\})\]
-	\[ = P(A)\]
-
-Let
-\[E_C = \{\omega: X(\omega)\geq c\} = X^{-1}([c,\infty))\}\]
-, measurable.
-
-\[P(X\geq c) = P(E_C)=E[\mathds{1}_{E_C}]\]
-
-\[E[X] \geq E[Y]\]
-
-\[P(X\geq c) = \frac1c E[c\mathds{1}_{E_C}] = \frac1c E[X]]\]
-
+Let \(c>0\).
+\begin{align*}
+     & E[X] \\
+    =& \int_{-\infty}^\infty x f_X(x)dx \\
+    =& \int_0^\infty x f_X(x)dx & (\text{since }\mathrm{supp}(f_X)=[0,\infty)) \\
+    =& \int_0^c x f_X(x)dx+\int_c^\infty x f_X(x)dx \\
+    \geq& \int_c^\infty x f_X(x)dx \\
+    \geq& \int_c^\infty c f_X(x)dx & (\text{since }\forall x\in [c,\infty): x\geq c) \\
+    =& c\int_c^\infty f_X(x)dx \\
+    =& c\left(\int_{-\infty}^\infty f_X(x)dx-\int_{-\infty}^c f_X(x)dx\right) \\
+    =& c(1-F_X(c)) \\
+    =& c(1-P(X\leq c)) \\
+    =& cP(X\geq c) \\
+    \Rightarrow & E[X] \geq c P(X\geq c) \\
+    \Rightarrow & P(X\geq c) \leq \frac{E[X]}{c}
+\end{align*}
+\[\therefore (\forall c>0):P(X\geq c) \leq \frac{E[X]}{c}\]
 \end{proof}
 
-\section{Extra1 [draft]}
+\textbf{Solution 2:}
 
-Let \(\mathcal{B}(\mathbb{R})\) be the Borel algebra on \(\mathbb{R}\)
-defined by \(\mathcal{B}(\mathbb{R})=\sigma(\{(a,b): a<b \in \mathbb{R}\})\).
+\begin{proof}
+Let \(c>0\).
 
-Show that \(\forall x \in \mathbb{R}:\{x\}\in \mathcal{B}(\mathbb{R})\).
+Let \(A\in\mathcal{A}\) be an event.
 
-\textbf{Solution:}
-
-\(\{x\}\) is the countably infinite intersection of all intervals
-\[\{(x,b):x<b\}\]
-
-\[\cap_{n=1} A_n \]
-
----
-
-\(\{x\} \in \mathcal{B}\), so complement is too.
-
-\((-\infty,x)\cup (x,\infty)\in \mathcal{B}\)
-
-\((-\infty,x)\in \mathcal{B}\)
-
-Since \(\forall n: (x,x+n)\in \mathcal{B}\),
-\((x,\infty)=\cup_{n=1}^\infty(x,x+n)\in \mathcal{B}\).
-
-Similiarly
-\((-\infty,x)=\cup_{n=1}^\infty (x-n,x)\in\mathcal{B}\)
-
-Hence
-\[(-\infty,x)\cup (x,\infty)\in \mathcal{B}\]
-\[\{x\}\in \mathcal{B}\]
-
-Alternatively:
-
-\[\{x\} = \cap_{n=1}^{\infty} (x-\frac{1}{n}, x+\frac{1}{n})\]
-\[= (\cup_{n=1}^{\infty} (x-\frac{1}{n}, x+\frac{1}{n})^c)^c\]
-
-\section{Quiz 1.3}
-
-Let \((\Omega, \mathcal{A}, P)\) be a probability space.
-Let \(A\in \mathcal{A}\) and \(B\in \mathcal{A}\).
-
-Let \(P((A\cup B)^\complement)=0.5\).
-
-Let \(P(A\cap B)=0.2\).
-
-What is the probability that either A or B but not both will occur?
-
-\textbf{Solution:}
-
+Let
+\[\mathds{1}_A(\omega)=\casesiie{1}{\omega\in A}{0}{\omega \notin A}\]
+Then:
+\[\mathds{1}_{X\geq c}(\omega)=\casesiie{1}{\omega\in \{X\geq c\}}{0}{\omega\in\{X<c\}}\]
+Or just:
+\[\mathds{1}_{X\geq c}=\casesiie{1}{X\geq c}{0}{X<c}\]
+Law of excluded middle implies:
+\[X \geq c \vee \neg(X \geq c)\]
+Assume \(X\geq c\).
 \begin{align*}
-	 & P((A\cup B)\setminus(A\cap B)) \\
-	=& P(A\cup B)-P(A\cap B) & (\text{ since }A\cap B \subseteq A\cup B) \\
-	=& P(A\cup B)-0.2 \\
-	=& 1-P((A \cup B)^\complement)-0.2 \\
-	=& 1-0.5-0.2 \\
-	=& 0.3 \\
+    & X\geq c \\
+    \Rightarrow& c\leq X \\
+    \Rightarrow& c\cdot 1\leq X \\
+    \Rightarrow& c\cdot \casesiie{1}{X\geq c}{0}{X<c}\leq X \\
+    \Rightarrow& c\cdot \mathds{1}_{X\geq c}\leq X \\
 \end{align*}
-
-\section{Quiz 1.5}
-
-Assume
-\(P(A) \geq 1-\delta\) and \(P(B) \geq 1-\delta\) for some small \(\delta\geq0\).
-
-Show that \(P(A\cap B) \geq 1-2\delta\).
-
-\textbf{Solution:}
-
+Assume \(\neg(X\geq c)\).
 \begin{align*}
-	 & P(A\cup B) \\
-	=& P(A)+P(B)-P(A\cap B) \\
-	\Rightarrow& \\
-	 & P(A\cap B) \\
-	=& P(A)+P(B)-P(A\cup B) \\
-	\geq& (1-\delta)+P(B)-P(A\cup B) & (\text{since }P(A) \geq 1-\delta) \\
-	\geq& (1-\delta)+(1-\delta)-P(A\cup B) & (\text{since }P(B) \geq 1-\delta) \\
-	\geq& (1-\delta)+(1-\delta)-1 & (\text{since }P(A\cup B) \leq 1) \\
-	=& 1-2\delta
-\end{align*}
-
-\section{Quiz 1.6}
-
-Let \(X\) be a random variable with continuous distribution whose CDF is given by
-\[F_X(x) = \begin{cases}
-	0 &\text{ if } x\leq 0 \\
-	cx^2 &\text{ if } 0<x<2 \\
-	1 &\text{ if } x \geq 2 \\
-\end{cases}\]
-
-\textbf{a)} Determine the constant \(c\).
-
-\textbf{Solution:}
-
-\(F_X(2)=1\). Since \(X\) is a continuous r.v., \(F_X\) is continuous. So:
-
-\begin{align*}
-	 & \lim_{x\uparrow 2}F_X(x)=1 \\
-	\Rightarrow & c\cdot 2^2=1 \\
-	\Rightarrow & c=\frac14 \\
-\end{align*}
-
-\textbf{b)} Compute \(Var(X)\).
-
-\textbf{Solution:}
-
-\begin{align*}
-	 & f_X(x) \\
-	=& \frac{d}{dx}F_X(x) \\
-	=& \frac{d}{dx}\casesiii{0}{x\leq 0}{cx^2}{0<x<2}{1} \\
-	=& \casesiii{0}{x\leq 0}{2cx}{0<x<2}{0} \\
-	=& \casesiii{0}{x\leq 0}{\frac12x}{0<x<2}{0} \\
-	=& \casesii{\frac12x}{0<x<2}{0} \\
+    & \neg(X\geq c) \\
+    \Rightarrow& X<c \\
+    \Rightarrow& 0<X<c & (\text{since }X>0) \\
+    \Rightarrow& c\cdot 0<X<c \\
+    \Rightarrow& c\cdot \casesiie{1}{X\geq c}{0}{X<c} \leq X \\
+    \Rightarrow& c\cdot \mathds{1}_{X\geq c}\leq X \\
 \end{align*}
 \begin{align*}
-	 & E[X] \\
-	=& \int_{-\infty}^\infty x f_X(x)dx \\
-	=& \int_{-\infty}^\infty x \casesii{\frac12x}{0<x<2}{0}dx \\
-	=& \int_{0}^2 x \frac12x dx \\
-	=& \int_{0}^2 \frac12x^2 dx \\
-	=& \frac16\hakparen{x^3}_0^2 dx \\
-	=& \frac16(2^3-0^3) \\
-	=& \frac{4}{3} \\
+    & (X\geq c \Rightarrow c\cdot \mathds{1}_{X\geq c}\leq X) \wedge (\neg(X\geq c) \Rightarrow c\cdot \mathds{1}_{X\geq c}\leq X) \\
+    \Rightarrow& c\cdot \mathds{1}_{X\geq c}\leq X \\
+    \Rightarrow& E[c\cdot \mathds{1}_{X\geq c}]\leq E[X] & (\text{since } E\text{ monotonically non-decreasing}) \\
+    \Rightarrow& c\cdot E[\mathds{1}_{X\geq c}]\leq E[X] \\
+    \Rightarrow& c\sum_{x\in \{0,1\}} x\cdot p_{\mathds{1}_{X\geq c}}(x)\leq E[X] \\
+    \Rightarrow& c (0\cdot p_{\mathds{1}_{X\geq c}}(0)+1\cdot p_{\mathds{1}_{X\geq c}}(1))\leq E[X] \\
+    \Rightarrow& c\cdot p_{\mathds{1}_{X\geq c}}(1)\leq E[X] \\
+    \Rightarrow& c\cdot P(\mathds{1}_{X\geq c}=1)\leq E[X] \\
+    \Rightarrow& c\cdot P\left(\casesiie{1}{X\geq c}{0}{X<c}=1\right)\leq E[X] \\
+    \Rightarrow& c\cdot P(X\geq c)\leq E[X] \\
+    \Rightarrow& P(X\geq c)\leq \frac{E[X]}{c} \\
 \end{align*}
-\begin{align*}
-	 & E[X^2] \\
-	=& \int_{-\infty}^\infty x^2 f_X(x)dx \\
-	=& \int_{-\infty}^\infty x^2 \casesii{\frac12x}{0<x<2}{0}dx \\
-	=& \int_{0}^2 x^2 \frac12x dx \\
-	=& \int_{0}^2 \frac12x^3 dx \\
-	=& \frac18\hakparen{x^4}_0^2 \\
-	=& \frac18(2^4-0^4) \\
-	=& 2 \\
-\end{align*}
-\begin{align*}
-	 & Var(X) \\
-	=& E[X^2]-E[X]^2 \\
-	=& 2-\left(\frac{4}{3}\right)^2 \\
-	=& \frac{18}{9}-\frac{16}{9} \\
-	=& \frac{2}{9} \\
-\end{align*}
+\end{proof}
 
-\section{Quiz 1.7 [draft]}
+\subsection{Exercise 1.12.3.10}
 
-Consider the Monty Hall problem.
+Suppose \(\mathcal{A}_1\), \(\mathcal{A}_2\) are \(\sigma\)-algebras
+of subsets of \(\Omega\).
 
-Prove that the probability to win the car if you switch doors is 2/3.
+Show that \(\mathcal{A}_1 \cap \mathcal{A}_2\) is a \(\sigma\)-algebra
+of subsets of \(\Omega\).
 
 \textbf{Solution:}
+\begin{proof}
+\(\mathcal{A}_1\cap\mathcal{A}_2\) is a \(\sigma\)-algebra all of the following conditions hold:
+\[\Omega \in \mathcal{A}_1\cap\mathcal{A}_2 \tag{I}\]
+\[\forall A\in \mathcal{A}_1\cap \mathcal{A}_2: A^\complement \in \mathcal{A}_1\cap \mathcal{A}_2 \tag{II}\]
+\[\forall (A_n)_{n=1}^\infty\subseteq \mathcal{A}_1\cap \mathcal{A}_2: \bigcup_{n=1}^\infty A_n \in \mathcal{A}_1\cap \mathcal{A}_2 \tag{III}\]
 
-Let \(C_k\) be the event that the car lies behind door \(k\), where \(k\in \{1,2,3\}\).
-Then
-\[\forall k: P(C_k)=\frac13\]
+To show these, we make use of the general rule:
+\[x\in A \wedge x\in B \Leftrightarrow x\in A\cap B\]
 
-Let \(O_k\) be the event that the host opens door \(k\), where \(k\in \{1,2,3\}\).
-
-The host will always open a door with a goat behind it, and never a door with
-the car behind it. So:
-\[\forall k: P(O_k|C_k) = 0\]
-\[\forall k: P(O_{k+1}|C_k) = \frac12\]
-\[\forall k: P(O_{k+2}|C_k) = \frac12\]
-where \(k+1\) and \(k+2\) are modulo 3.
-
-\section{Misc problem 1 [draft]}
-
-Prove \(P(a < X \leq b) = F_X(b)-F_X(b)\).
-
-\textbf{Solution:}
-
-\section{Exercise 2.6.2.4 [draft]}
-
-\(X=^dY\) if \(P(X\leq z)=P(Y\leq z)\).
-
-Let \(X \sim \mathcal{N}(0, 1)\).
-
-Show that \(X=^d-X\).
-
-\textbf{Solution:}
-
+Property (I):
 \begin{align*}
-	 & P(X\leq z) \\
-	=& \frac{1}{\sqrt{2\pi}} \int_{-\infty}^z e^{-\frac{x^2}{2}}dx \\
-	=& [y=-x, dy=-dx] \\
-	=& \frac{1}{\sqrt{2\pi}} \int_{\infty}^{-z} e^{-\frac{(-y)^2}{2}}(-dy) \\
-	=& P(-X\leq z) \\
+	& \mathcal{A}_1\ \sigma\text{-algebra} \wedge \mathcal{A}_2\ \sigma\text{-algebra} \\
+	\Rightarrow& \Omega \in \mathcal{A}_1 \wedge \Omega \in \mathcal{A}_2 \\
+	\Rightarrow& \Omega \in \mathcal{A}_1 \cap \mathcal{A}_2 \\
 \end{align*}
 
-Hence, \(X\) symmetric distribution.
+Property (II):
 
-\section{Exercise 2.6.2.5 [draft]}
+Let \(A \in \mathcal{A}_1 \cap \mathcal{A}_2\).
+\begin{align*}
+    & A \in \mathcal{A}_1\cap \mathcal{A}_2 \\
+    \Rightarrow & A \in \mathcal{A}_1\ \wedge\ A \in \mathcal{A}_2 \\
+    \Rightarrow & A^\complement \in \mathcal{A}_1\ \wedge\ A^\complement \in \mathcal{A}_1 & (\text{ since }\mathcal{A}_1,\mathcal{A}_2\ \sigma\text{-algebras}) \\
+    \Rightarrow & A^\complement \in \mathcal{A}_1\cap\mathcal{A}_2 \\
+\end{align*}
+\[\therefore \forall A\in \mathcal{A}_1\cap \mathcal{A}_2: A^\complement\in\mathcal{A}_1\cap \mathcal{A}_2\]
+
+Property (III):
+
+Let \((A_n)_{n=1}^\infty\subseteq \mathcal{A}_1\cap \mathcal{A}_2\).
+
+\begin{align*}
+    & (A_n)_{n=1}^\infty\subseteq \mathcal{A}_1\cap \mathcal{A}_2 \\
+    & (A_n)_{n=1}^\infty\subseteq \mathcal{A}_1\ \wedge\ (A_n)_{n=1}^\infty\subseteq \mathcal{A}_2 \\
+    & \bigcup_{n=1}^\infty A_n \in \mathcal{A}_1\ \wedge\ \bigcup_{n=1}^\infty A_n \in \mathcal{A}_2 \\
+    & \bigcup_{n=1}^\infty A_n \in \mathcal{A}_1\cap\mathcal{A}_2 \\
+\end{align*}
+\[\therefore \forall (A_n)_{n=1}^\infty \subseteq \mathcal{A}_1\cap\mathcal{A}_2: \bigcup_{n=1}^\infty A_n\in \mathcal{A}_1\cap \mathcal{A_2}\]
+
+Since all three properties hold, \(\mathcal{A}_1\cap\mathcal{A}_2\) is a \(\sigma\)-algebra.
+\end{proof}
+
+\subsection{Exercise 2.6.2.5 [draft]}
 
 \(Z\sim \mathcal{N}(\mu, \sigma^2)\)
 and \(X=e^Z\).
@@ -467,7 +451,27 @@ Let \(z>0\).
 
 (Limit becomes \(-\infty\) because log(0) approaches negative infinity)
 
-\section{Exercise 2.6.3.1 [draft]}
+\subsection{Exercise 2.6.2.4 [draft]}
+
+\(X=^dY\) if \(P(X\leq z)=P(Y\leq z)\).
+
+Let \(X \sim \mathcal{N}(0, 1)\).
+
+Show that \(X=^d-X\).
+
+\textbf{Solution:}
+
+\begin{align*}
+	 & P(X\leq z) \\
+	=& \frac{1}{\sqrt{2\pi}} \int_{-\infty}^z e^{-\frac{x^2}{2}}dx \\
+	=& [y=-x, dy=-dx] \\
+	=& \frac{1}{\sqrt{2\pi}} \int_{\infty}^{-z} e^{-\frac{(-y)^2}{2}}(-dy) \\
+	=& P(-X\leq z) \\
+\end{align*}
+
+Hence, \(X\) symmetric distribution.
+
+\subsection{Exercise 2.6.3.1 [draft]}
 
 The continuous bivariate r.v. \((X,Y)\) has PDF
 \[f_{X,Y}(x,y)=\casesii{1}{-y<x<y \wedge 0<y<1}{0}\]
@@ -526,7 +530,7 @@ And \(f_Y(y)=2y\), so it cannot be equal to the expression above.
 
 Another way is to just compare the values of \(f_{X,Y}(x,y)\) vs \(f_X(x)f_Y(y)\).
 
-\section{Exercise 2.6.3.17 [draft]}
+\subsection{Exercise 2.6.3.17 [draft]}
 
 Multivariate random variable \((X,Y)\) with joint PDF:
 \[f_{X,Y}(x,y)=\casesii{\frac{2}{(1+x+y)^3}}{x>0\wedge y>0}{0}\]
@@ -577,7 +581,8 @@ Pick \(v\in \mathbb{R}\).
 \[\frac{1}{2(1+v+2\max(0,-v))^2}\]
 \[\frac{1}{2(1+|v|)^2}\]
 
-\section{Gut, 3.1, p.24}
+\section{Allan Gut problems}
+\subsection{3.1, p.24}
 
 Show that if \(X \in C(0,1)\), then so is \(1/X\).
 
@@ -606,7 +611,7 @@ Let \(Y=g(X)\) where \(g: \mathbb{R}\setminus\{0\}\to\mathbb{R}\setminus\{0\}\),
 
 \(\therefore f_{1/X}\in C(0,1)\)
 
-\section{Gut, Exercise 1.1, p.57}
+\subsection{1.1, p.57}
 
 Let \(X_1,X_2 \sim U(0,1)\), iid.
 
@@ -639,7 +644,8 @@ Let \(Y=X_1+X_2\).
 	=& \casesiii{y}{0\leq y\leq 1}{2-y}{1<y\leq 2}{0} \\
 \end{align*}
 
-\section{Modelltenta Problem 1}
+\section{Old exams}
+\subsection{Modelltenta Problem 1}
 
 Let \(f : \mathbb{R} \to \mathbb{R}\) be a Borel function, and \(X\) be a
 random variable. Let \(Y = f(X)\).
@@ -695,5 +701,67 @@ Therefore, \(Y\) is a measurable function.
 Therefore, \(Y\) is a random variable.
 \end{proof}
 
+\section{Misc problems}
+\subsection{Prove monotonicity of expected value}
+Let \(X\leq Y\).
+
+Show that \(E[X]\leq E[Y]\).
+
+\textbf{Solution:}
+
+\begin{proof}
+Let \(Z=Y-X\).
+
+Then \(Z\geq 0\).
+\begin{align*}
+     & E[Z]\geq 0 & (\text{since }Z\geq 0 \Rightarrow E[Z]\geq 0) \\
+    \Rightarrow& E[Y-X] \geq 0 \\
+    \Rightarrow& E[Y]-E[X] \geq 0 & (\text{since }E\text{ linear}) \\
+    \Rightarrow& E[X]\geq E[Y]
+\end{align*}
+\end{proof}
+
+\subsection{Extra1 [draft]}
+
+Let \(\mathcal{B}(\mathbb{R})\) be the Borel algebra on \(\mathbb{R}\)
+defined by \(\mathcal{B}(\mathbb{R})=\sigma(\{(a,b): a<b \in \mathbb{R}\})\).
+
+Show that \(\forall x \in \mathbb{R}:\{x\}\in \mathcal{B}(\mathbb{R})\).
+
+\textbf{Solution:}
+
+\(\{x\}\) is the countably infinite intersection of all intervals
+\[\{(x,b):x<b\}\]
+
+\[\cap_{n=1} A_n \]
+
+---
+
+\(\{x\} \in \mathcal{B}\), so complement is too.
+
+\((-\infty,x)\cup (x,\infty)\in \mathcal{B}\)
+
+\((-\infty,x)\in \mathcal{B}\)
+
+Since \(\forall n: (x,x+n)\in \mathcal{B}\),
+\((x,\infty)=\cup_{n=1}^\infty(x,x+n)\in \mathcal{B}\).
+
+Similiarly
+\((-\infty,x)=\cup_{n=1}^\infty (x-n,x)\in\mathcal{B}\)
+
+Hence
+\[(-\infty,x)\cup (x,\infty)\in \mathcal{B}\]
+\[\{x\}\in \mathcal{B}\]
+
+Alternatively:
+
+\[\{x\} = \cap_{n=1}^{\infty} (x-\frac{1}{n}, x+\frac{1}{n})\]
+\[= (\cup_{n=1}^{\infty} (x-\frac{1}{n}, x+\frac{1}{n})^c)^c\]
+
+\subsection{Misc problem 1 [draft]}
+
+Prove \(P(a < X \leq b) = F_X(b)-F_X(b)\).
+
+\textbf{Solution:}
 
 \end{document}
