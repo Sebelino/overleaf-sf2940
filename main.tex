@@ -779,10 +779,25 @@ Alternatively:
 \[\{x\} = \cap_{n=1}^{\infty} (x-\frac{1}{n}, x+\frac{1}{n})\]
 \[= (\cup_{n=1}^{\infty} (x-\frac{1}{n}, x+\frac{1}{n})^c)^c\]
 
-\subsection{Misc problem 1 [draft]}
+\subsection{Misc problem 1}
 
-Prove \(P(a < X \leq b) = F_X(b)-F_X(b)\).
+Prove \(P(a < X \leq b) = F_X(b)-F_X(a)\).
 
 \textbf{Solution:}
+
+\begin{proof}
+\begin{align*}
+     & P(a<X\leq b) \\
+    =& 1-P(\{a<X\leq b\}^\complement) \\
+    =& 1-P(X\in (a,b]^\complement) \\
+    =& 1-P(X\in (-\infty,a] \cup (b,\infty)) \\
+    =& 1-P(\{X\leq a\} \cup \{X>b\} \\
+    =& 1-(P(X\leq a)+P(X>b)) & (\text{disjoint, }a<b) \\
+    =& 1-P(X\leq a)-P(X>b) \\
+    =& 1-P(X\leq a)-(1-P(X\leq b)) \\
+    =& P(X\leq b)-P(X\leq a) \\
+    =& F_X(b)-F_X(a)
+\end{align*}
+\end{proof}
 
 \end{document}
