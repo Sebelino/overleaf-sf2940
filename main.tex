@@ -169,22 +169,42 @@ Let \(X\) be a random variable with continuous distribution whose CDF is given b
 
 Consider the Monty Hall problem.
 
-Prove that the probability to win the car if you switch doors is 2/3.
+Prove that the probability to win the car if you switch door is 2/3.
 
 \textbf{Solution:}
 
-Let \(C_k\) be the event that the car lies behind door \(k\), where \(k\in \{1,2,3\}\).
-Then
-\[\forall k: P(C_k)=\frac13\]
+\begin{proof}
+The following events may occur, in chronological order:
+\[C_k: \text{The car is placed behind door }k\]
+\[S_k: \text{You select door }k\]
+\[D_k: \text{You decide to open door }k\]
+where \(k\in \{1,2,3\}\).
 
-Let \(O_k\) be the event that the host opens door \(k\), where \(k\in \{1,2,3\}\).
+Equivalently, we want to prove that sticking to one's choice yields a probability of 1/3:
+\[P(C_k|S_k \cap D_k)=\frac{1}{3}\]
 
-The host will always open a door with a goat behind it, and never a door with
-the car behind it. So:
-\[\forall k: P(O_k|C_k) = 0\]
-\[\forall k: P(O_{k+1}|C_k) = \frac12\]
-\[\forall k: P(O_{k+2}|C_k) = \frac12\]
-where \(k+1\) and \(k+2\) are modulo 3.
+The car was placed by any of the doors with equal probability, so:
+\[\forall k: P(C_k)=\frac13\tag{I}\]
+
+Since you do not know where the car is, the actual location of the car does not affect your decisions. So:
+\[P(S_k\cap D_k|C_k)=P(S_k\cap D_k)\tag{II}\]
+\begin{align*}
+     & P(C_k|S_k\cap D_k) \\
+    =& P(S_k\cap D_k|C_k)\frac{P(C_k)}{P(S_k\cap D_k)} & (\text{Bayes' theorem}) \\
+    =& P(S_k\cap D_k|C_k)\frac{1/3}{P(S_k\cap D_k)} & (\text{apply (I)}) \\
+    =& \frac{P(S_k\cap D_k|C_k)}{3P(S_k\cap D_k)} \\
+    =& \frac{P(S_k\cap D_k)}{3P(S_k\cap D_k)} & (\text{apply (II)}) \\
+    =& \frac{1}{3}
+\end{align*}
+Similarly, the probability of winning by switching doors is:
+\begin{align*}
+     & P(C_k^\complement|S_k\cap D_k^\complement) \\
+    =& 1-P(C_k|S_k\cap D_k^\complement) \\
+    =& 1-\frac{P(S_k\cap D_k^\complement|C_k)}{3P(S_k\cap D_k^\complement)} \\
+    =& 1-\frac{1}{3} \\
+    =& \frac{2}{3}
+\end{align*}
+\end{proof}
 
 \section{Timo Koski problems}
 \subsection{Example 1.5.1, p.26}
@@ -372,6 +392,7 @@ Assume \(\neg(X\geq c)\).
     \Rightarrow& c\cdot P(X\geq c)\leq E[X] \\
     \Rightarrow& P(X\geq c)\leq \frac{E[X]}{c} \\
 \end{align*}
+\[\therefore (\forall c>0):P(X\geq c)\leq \frac{E[X]}{c}\]
 \end{proof}
 
 \subsection{Exercise 1.12.3.10}
