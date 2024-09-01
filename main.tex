@@ -632,6 +632,30 @@ Let \(Y=g(X)\) where \(g: \mathbb{R}\setminus\{0\}\to\mathbb{R}\setminus\{0\}\),
 
 \(\therefore f_{1/X}\in C(0,1)\)
 
+
+\subsection{Exercise 1.5, p.33}
+
+Prove that if \(X\) and \(Y\) are independent
+then the conditional distributions and the unconditional distributions are the same.
+
+\textbf{Solution:}
+
+\begin{proof}
+Let \(y\in \mathbb{R}\).
+
+Let us only consider conditioning on events with nonzero probability, so let \(x\in \text{supp}(f_X)\) so that \(X=x\) is a possible event.
+\begin{align*}
+     & F_{Y|X=x}(y) \\
+    =& \int_{-\infty}^yf_{Y|X=x}(z)dz \\
+    =& \int_{-\infty}^y\frac{f_{X,Y}(x,v)}{f_X(x)}dv & (f_X(x) \neq 0) \\
+    =& \int_{-\infty}^y\frac{f_X(x)f_Y(v)}{f_X(x)}dv & (X,Y\text{ independent}) \\
+    =& \int_{-\infty}^yf_Y(v)dv \\
+    =& F_Y(y)
+\end{align*}
+\[\therefore \forall y\in \mathbb{R}:\forall x\in \text{supp}(f_X): F_{Y|X=x}(y)=F_Y(y)\]
+And by symmetry, \(\forall x\in\mathbb{R}:y\in \text{supp}(f_Y):F_{X|Y=y}(x)=F_X(x)\).
+\end{proof}
+
 \subsection{1.1, p.57}
 
 Let \(X_1,X_2 \sim U(0,1)\), iid.
@@ -750,6 +774,15 @@ defined by \(\mathcal{B}(\mathbb{R})=\sigma(\{(a,b): a<b \in \mathbb{R}\})\).
 Show that \(\forall x \in \mathbb{R}:\{x\}\in \mathcal{B}(\mathbb{R})\).
 
 \textbf{Solution:}
+
+Let \(x\in \mathbb{R}\).
+
+\begin{align*}
+     & \{x\} \\
+    =& \bigcap_{n=1}^\infty (x-\frac{1}{n}, x+\frac{1}{n}) \\
+    =& \left(\bigcup_{n=1}^\infty (x-\frac{1}{n}, x+\frac{1}{n})^\complement\right)^\complement \\
+    =& \left(\bigcup_{n=1}^\infty\left( (-\infty,x-\frac{1}{n})\cup (x+\frac{1}{n}      ,\infty) \right)\right)^\complement \\
+\end{align*}
 
 \(\{x\}\) is the countably infinite intersection of all intervals
 \[\{(x,b):x<b\}\]
