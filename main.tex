@@ -446,31 +446,43 @@ Let \((A_n)_{n=1}^\infty\subseteq \mathcal{A}_1\cap \mathcal{A}_2\).
 Since all three properties hold, \(\mathcal{A}_1\cap\mathcal{A}_2\) is a \(\sigma\)-algebra.
 \end{proof}
 
-\subsection{Exercise 2.6.2.5 [draft]}
+\subsection{Exercise 2.6.2.5}
 
 \(Z\sim \mathcal{N}(\mu, \sigma^2)\)
 and \(X=e^Z\).
 
 Show that the PDF of \(X\) is
-\[f_X(x)=\frac{1}{x\sigma\sqrt{2\pi}}e^{\frac{(log x-\mu)^2}{2\sigma^2}}\]
+\[f_X(x)=\frac{1}{x\sigma\sqrt{2\pi}}e^{-\frac{(\ln x-\mu)^2}{2\sigma^2}}\]
 for \(x>0\).
 
 \textbf{Solution:}
 
-Want to show \(P(X\leq z)=\int_{\infty}^z \frac{1}{x\sigma\sqrt{2\pi}}e^{-\frac{(logx-\mu)^2}{2\sigma^2}}\)
-
-Notice that \(X\geq 0 \Rightarrow f_X(z)=0\) if \(z\leq 0\).
-
-Let \(z>0\).
-
-\(P(X\leq z)=P(e^Z\leq z)=(log\ bijective)=P(Z\leq log z)=\frac{1}{\sqrt{2\pi \sigma^2}}\int_{-\infty}^{log 2}e^{-\frac{(x-\mu^2)}{2\sigma^2}}dx\)
-
-\[= [x=log y, dx=dy/y] = \frac{1}{\sqrt{2\pi\sigma^2}}\int_0^z e^{-\frac{(log y - \mu)^2}{2\sigma^2}} \frac{dy}{y}\]
-
-\[=\frac{1}{\sqrt{2\pi\sigma^2}}\int_{-\infty}^z f_X(y)dy \Rightarrow f_X(y)=\frac{1}{\sqrt{2\pi \sigma^2}y}e^{-\frac{(log y-\mu)^2}{2\sigma^2}}\]
-\(y>0\)
-
-(Limit becomes \(-\infty\) because log(0) approaches negative infinity)
+\begin{proof}
+Let \(t \in \mathbb{R}\).
+\begin{align*}
+     & F_X(t) \\
+    =& P(X\leq t) \\
+    =& P(e^Z\leq t) \\
+    =& P(\ln(e^Z)\leq \ln{t}) & (A\leq B \Rightarrow \ln{A}\leq \ln{B}\text{ since }\ln\text{ strictly increasing}) \\
+    =& P(Z\leq \ln{t}) \\
+    =& F_Z(\ln{t}) \\
+    =& \int_{-\infty}^{\ln{t}}f_Z(\ln{z})dz \\
+    =& \int_{-\infty}^{\ln{t}} \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(z-\mu)^2}{2\sigma^2}} dz \\
+    =& \left[z=g(x)=\ln{x}, \frac{dz}{dx}=\frac{1}{x}\Rightarrow dz=\frac{1}{x}dx, g^{-1}(x) = e^x\right] \\
+    =& \int_{g^{-1}(-\infty)}^{g^{-1}(\ln{t})} \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(g(x)-\mu)^2}{2\sigma^2}} \cdot g'(x)dx \\
+    =& \int_{e^{-\infty}}^{e^{\ln{t}}} \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(\ln{x}-\mu)^2}{2\sigma^2}} \cdot \frac{1}{x}dx \\
+    =& \int_0^t \frac{1}{x\sigma\sqrt{2\pi}} e^{-\frac{(\ln{x}-\mu)^2}{2\sigma^2}}dx \\
+    =& \int_{-\infty}^t \frac{1}{x\sigma\sqrt{2\pi}} e^{-\frac{(\ln{x}-\mu)^2}{2\sigma^2}}dx - \int_{-\infty}^0 \frac{1}{x\sigma\sqrt{2\pi}} e^{-\frac{(\ln{x}-\mu)^2}{2\sigma^2}}dx \\
+    =& \int_{-\infty}^t \frac{1}{x\sigma\sqrt{2\pi}} e^{-\frac{(\ln{x}-\mu)^2}{2\sigma^2}}dx - P(X\leq 0) \\
+    =& \int_{-\infty}^t \frac{1}{x\sigma\sqrt{2\pi}} e^{-\frac{(\ln{x}-\mu)^2}{2\sigma^2}}dx & (P(X\leq 0)=0\text{ since }X=e^Z\text{ and }\forall z: e^z\geq 0)
+\end{align*}
+Since
+\[F_X(x)=\int_{-\infty}^x f_X(u)du\]
+and
+\[F_X(t)=\int_{-\infty}^t \frac{1}{x\sigma\sqrt{2\pi}} e^{-\frac{(\ln{x}-\mu)^2}{2\sigma^2}}dx\]
+it follows that
+\[f_X(x) = \frac{1}{x\sigma\sqrt{2\pi}} e^{-\frac{(\ln{x}-\mu)^2}{2\sigma^2}}\]
+\end{proof}
 
 \subsection{Exercise 2.6.2.4 [draft]}
 
@@ -631,7 +643,6 @@ Let \(Y=g(X)\) where \(g: \mathbb{R}\setminus\{0\}\to\mathbb{R}\setminus\{0\}\),
 \end{align*}
 
 \(\therefore f_{1/X}\in C(0,1)\)
-
 
 \subsection{Exercise 1.5, p.33}
 
@@ -832,5 +843,34 @@ Prove \(P(a < X \leq b) = F_X(b)-F_X(a)\).
     =& F_X(b)-F_X(a)
 \end{align*}
 \end{proof}
+
+\subsection{Misc problem 2 [draft]}
+
+Random variables \(X_1,\ldots,X_n\) are independent and identically distributed.
+
+Consider random variables \(Y_1,\ldots, Y_n\) such that
+\[\forall k:Y_k=2X_k\]
+
+Prove that \(Y_1,\ldots,Y_n\) are iid.
+
+\textbf{Solution:}
+
+Let \(g(t) = 2t\).
+
+Then \(g^{-1}(t) = \frac12 t\).
+
+And \(\forall k: Y_k=g(X_k)\).
+
+We know that if two variables \(U\) and \(V\) are iid, then:
+\[\forall t: f_U(t) = f_V(t) \tag{1}\]
+
+Let \(i,j\in \{1,\ldots,n\}\). Let \(y\in \text{supp}(f_{Y_i})=\text{supp}(f_{Y_j})\).
+
+\begin{align*}
+     & f_{Y_i}(y) \\
+    =& f_{X_i}(g^{-1}(y)) \cdot \left|\frac{d}{dy} g^{-1}(y)\right| \\
+    =& f_{X_j}(g^{-1}(y)) \cdot \left|\frac{d}{dy} g^{-1}(y)\right| & (\text{apply } (I)) \\
+    =& f_{Y_j}(y)
+\end{align*}
 
 \end{document}
