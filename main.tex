@@ -700,6 +700,106 @@ Let \(Y=X_1+X_2\).
 	=& \casesiii{y}{0\leq y\leq 1}{2-y}{1<y\leq 2}{0} \\
 \end{align*}
 
+\subsection{Example 2.1, p.33}
+
+A stick of length one is broken at a random point, uniformly distributed over the stick. The remaining piece is broken once more.
+
+a) Find the expected value of the piece that now remains.
+
+\textbf{Solution:}
+
+Let \(X\) be the length of the piece that remains after breaking the stick once.
+
+\(X\) is uniformly distributed: \(X\sim U(0,1)\).
+
+Let \(Y\) be the length of the piece that remains after breaking the stick a second time.
+
+Assuming \(X=x\), the point at which the stick will be broken the second time is denoted \(Y|X=x\), which is then a uniformly distributed random variable: \(Y\sim U(0,\frac{1}{x})\).
+
+Its conditional expectation is:
+\begin{align*}
+     & E[Y|X=x] \\
+    =& \int_{-\infty}^{\infty} yf_{Y|X=x}(y)dy \\
+    =& \int_{-\infty}^{\infty} y\casesii{\frac{1}{x}}{0<y<x}{0}dy \\
+    =& \int_0^x y\casesii{\frac{1}{x}}{0<y<x}{0}dy \\
+    =& \int_0^x y\cdot\frac{1}{x}dy \\
+    =& \frac{1}{x}\int_0^x ydy \\
+    =& \frac{1}{x}\left[\frac12y^2\right]_0^x \\
+    =& \frac{x^2}{2x} \\
+    =& \frac{1}{2}x \tag{I}
+\end{align*}
+And the expected value of \(Y\) is:
+\begin{align*}
+     & E[Y] \\
+    =& \int_{-\infty}^{\infty} E[Y|X=x]f_X(x)dx & (\text{law of total expectation}) \\
+    =& \int_{-\infty}^{\infty} E[Y|X=x]\casesii{1}{0<x<1}{0}dx \\
+    =& \int_0^1 E[Y|X=x] \cdot 1dx \\
+    =& \int_0^1 E[Y|X=x]dx \\
+    =& \int_0^1 \frac{1}{2}x & (\text{apply (I)}) \\
+    =& \frac{1}{2}\left[\frac12x^2\right]_0^1 \\
+    =& \frac{1}{4}
+\end{align*}
+
+b) Find the variance of the piece that now remains.
+
+\begin{align*}
+     & V[Y|X=x] \\
+    =& E[Y^2|X=x] - (E[Y|X=x])^2 \\
+    =& \underbrace{E[Y^2|X=x]}_A - (\underbrace{E[Y|X=x]}_{B})^2 \\
+\end{align*}
+\begin{align*}
+     & A \\
+    =& E[Y^2|X=x] \\
+    =& \int_{-\infty}^{\infty} y^2 f_{Y|X=x}(y)dy \\
+    =& \int_{-\infty}^{\infty} y^2 \casesii{\frac{1}{x}}{0<y<x}{0}dy \\
+    =& \int_0^x y^2 \frac{1}{x}dy \\
+    =& \frac{1}{x}\int_0^x y^2 dy \\
+    =& \frac{1}{x}\left[\frac13y^3\right]_0^x \\
+    =& \frac{1}{x}\cdot \frac13x^3 \\
+    =& \frac13x^2
+\end{align*}
+\begin{align*}
+     & V[Y|X=x] \\
+    =& A-B^2 \\
+    =& \frac{1}{3}x^2-\left(\frac{1}{2}x\right)^2 \\
+    =& \frac{1}{3}x^2-\frac{1}{4}x^2 \\
+    =& \frac{1}{12}x^2
+\end{align*}
+
+\subsection{Exercise 2.1}
+
+Let \(X\), \(Y\), \(Y_1\), \(Y_2\) be random variables.
+
+a)
+Show that \(E\hakparen{c|X=x}=c\).
+
+\textbf{Solution:}
+
+\begin{proof}
+We can interpret \(E\hakparen{c|X=x}=c\) to mean \(E\hakparen{C|X=x}=c\),
+where \(C\) is a discrete random variable with PMF:
+\[p_C(t) = \casesii{1}{t=c}{0}\]
+Then:
+\begin{align*}
+     & E[c|X=x] \\
+    =& E[C|X=x] \\
+    =& \sum_{t\in \text{img}(C)}t\cdot p_C(t) \\
+    =& \sum_{t\in \{c\}}t\cdot p_C(t) \\
+    =& c\cdot p_C(c) \\
+    =& c\cdot 1 \\
+    =& c
+\end{align*}
+\end{proof}
+
+b)
+Show that
+\(E\hakparen{Y_1+Y_2|X=x}=E\hakparen{Y_1|X=x}+E\hakparen{Y_2|X=x}\).
+
+\begin{align*}
+     & E\hakparen{Y_1+Y_2|X=x} \\
+    =& E\hakparen{Y_1+Y_2|X=x} \\
+\end{align*}
+
 \section{Old exams}
 \subsection{Modelltenta Problem 1}
 
@@ -758,6 +858,32 @@ Therefore, \(Y\) is a random variable.
 \end{proof}
 
 \section{Misc problems}
+\subsection{Independence vs. pairwise independence}
+\(A\) and \(B\) are independent.
+
+\(A\) and \(C\) are independent.
+
+\(B\) and \(C\) are independent.
+
+Are \(A\), \(B\), and \(C\) independent?
+
+\textbf{Solution:}
+
+No. Consider:
+\[\Omega = \{\omega_1,\omega_2,\omega_3,\omega_4\}\]
+\[\forall k: P(\{\omega_k\}) = \frac14\]
+\[A = \{\omega_1,\omega_2\}\]
+\[B = \{\omega_1,\omega_3\}\]
+\[C = \{\omega_2,\omega_3\}\]
+Then:
+\[P(A \cap B) = P(\omega_1)=\frac14\]
+\[P(A \cap C) = P(\omega_2)=\frac14\]
+\[P(B \cap C) = P(\omega_3)=\frac14\]
+but:
+\[P(A\cap B \cap C) = P(\varnothing)=0\]
+while:
+\[P(A)\cdot P(B) \cdot P(C) = (\frac{1}{4})^3=\frac{1}{64}\neq 0\]
+
 \subsection{Prove monotonicity of expected value}
 Let \(X\leq Y\).
 
