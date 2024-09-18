@@ -8,14 +8,152 @@
 \usepackage{amsthm}
 \usepackage{dsfont}
 \usepackage[parfill]{parskip}
+\usepackage{tikz}
+\usepackage[breakable]{tcolorbox}
 \usepackage{hyperref} % Clickable ToC
 \hypersetup{colorlinks}
 
 \usepackage{sebelino-mathlib} % Custom sty file
 \setcounter{secnumdepth}{0}
+\allowdisplaybreaks
 \begin{document}
 \maketitle
 \tableofcontents
+
+\section{Drafts}
+
+\subsection{TK 2.6.3.20 (variant)}
+Let $X_1 \sim \Gamma(r, 1)$ and $X_2 \sim \Gamma(s, 1)$ be independent.
+
+Show that $\frac{X_1}{X_2}$ and $X_1 + X_2$ are independent.
+
+\textbf{Solution:}
+
+\[f_{X_1} = \frac{x^{r-1}}{\Gamma(r)}e^{-x} \mathds{1}_{[0,\infty)}(x) \]
+
+Let
+\[h(x_1, x_2) = (\frac{x_1}{x_2},x_1+x_2)\]
+\[h^{-1}(x_1, x_2) = (\frac{x_1x_2}{1+x_1},\frac{x_2}{1+x_1})\]
+
+\begin{align*}
+     & f_{\frac{X_1}{X_2},X_1+X_2}(x,y) \\
+    =& \frac{\partial^2}{\partial x \partial y} P(\frac{X_1}{X_2}\leq x,X_1+X_2\leq y) \\
+\end{align*}
+
+$$
+\{(X1/X2, X1+X2) \in (\infty,x] \times (-\infty,y] \}
+= \{(X1, X2) \in h^{-1}((\infty,x] \times (-\infty,y] \}
+$$
+
+\[J_{h^{-1}} = [v/(1+u)-uv/(1+u)^2 u/(1+u)] [-v/(1+u)^2 1/(1+u)] = v/(1+u)^2 \]
+
+\begin{align*}
+     &P(X1/X2 \leq x, X1+X2 \leq y) \\
+    =& \int_{h^{-1}(interval1 x interval 2)} f_{X1,X2}(x,y)dxdy \\
+    =& \int_{h^{-1}(interval1 x interval 2)} f_{X1}(x) f_{X2}(y)dxdy \\
+    =& \int_{interval1 x interval 2} f_{X1}(u)f_{X_2}(v)|J_{h^{-1}}|dudv \\
+\end{align*}
+
+\[ = \int_{-\infty}^x \int_{-\infty}^y \frac{(uv/(1+u))^{r-1}}{\Gamma(r)} e^{-\frac{uv}{1+u}} e^{-\frac{v}{1+u}}\]
+
+\[ = \int_{-\infty}^x \int_{-\infty}^y A(u) B(v) du dv\]
+\[ = \int_{-\infty}^x A(u) du \int_{-\infty}^y B(v) dv\]
+
+\[f_{X1/X2,X1+X2}(x,y) = \frac{\partial^2}{\partial x\partial y}P(\frac{X_1}{X_2}\leq x, X_1+X_2 \leq y)\]
+\[ = ((x/(1+x))^{r-1} \cdot \frac{1}{(1+x)^2} \cdot \frac{1}{(1+x)^s-1}) \cdot (y^{r+s-1}e^{-y})\]
+\[ = A(x) \cdot B(y)\]
+Therefore independent
+
+\subsection{TK 2.6.5.2}
+
+Let \( X \sim \text{Exp}(1/\lambda) \) (scale parameter),
+\[ L = \left\lfloor \frac{X}{m} \right\rfloor \]
+\[ R = X - m \cdot L \]
+
+Show that \(L\) and \(R\) are independent random variables.
+Determine even the marginal distributions of \( L \) and \( R \).
+
+\textbf{Solution:}
+
+\(X\) is a continuous random variable since \(X\sim \operatorname{Exp}(\frac{1}{\lambda})\).
+
+\(L\) is discrete since the floor function is integer-valued.
+
+\(R\) is continuous since \(X\) is continuous and \(R=X-mL\).
+
+\(\operatorname{supp}(f_X) = (0,\infty)\) since exponential distribution.
+
+\(\operatorname{supp}(p_L) = \{\floor{\frac{x}{m}} : x \in (0,\infty)\} = \{0,m,2m,\ldots\} = m\mathbb{N}_0\)
+
+\(\operatorname{supp}(f_R) = \{x-m \floor{\frac{x}{m}} : x \in (0,\infty)\} = [0,m)\)
+
+Want to show that
+\[P(L=l,\ R\leq r) = P(L=l)\cdot P(R\leq r)\]
+
+Marginal distribution of \(L\):
+\begin{align*}
+    & P(L=l) \\
+    & P\left(\floor{\frac{X}{m}}=l\right) \\
+    & P\left(l\leq \frac{X}{m} < l+1\right) \\
+    & P\left(ml\leq X < ml+m\right) \\
+    & \int_{ml}^{ml+m}\lambda e^{-\lambda x}dx \\
+    & -\left[e^{-\lambda x}\right]_{x=ml}^{ml+m} \\
+    & -(e^{-\lambda (ml+m)} - e^{-\lambda ml}) \\
+    & e^{-\lambda ml} - e^{-\lambda (ml+m)} \\
+    & e^{-\lambda ml} - e^{-\lambda ml}e^{-\lambda m} \\
+    & e^{-\lambda ml} (1 - e^{-\lambda m})
+\end{align*}
+
+Lemma: Show that
+\[X-m\floor{\frac{X}{m}} \in [0,m) \]
+Let \(L=\floor{\frac{X}{m}}\).
+\begin{align*}
+    & \floor{\frac{X}{m}} \leq \frac{X}{m} < \floor{\frac{X}{m}}+1 \\
+    \Rightarrow& L \leq \frac{X}{m} < L+1 \\
+    \Rightarrow& mL \leq X < mL+m \\
+    \Rightarrow& mL-mL \leq X-mL < mL+m-mL \\
+    \Rightarrow& 0 \leq X-mL < m \\
+    \Rightarrow& X-mL \in [0,m) \\
+    \Rightarrow& X-m\floor{\frac{X}{m}} \in [0,m)
+\end{align*}
+
+Marginal distribution of \(R\):
+
+\begin{align*}
+    & P(R\leq r) \\
+    =& \sum_{l=0}^\infty P(R\leq r \cap L=l) & (\text{Law of total probability}) \\
+    =& \sum_{l=0}^\infty e^{ml\lambda}(1-e^{-\lambda r}) \\
+    =& (1-e^{-\lambda r})\sum_{l=0}^\infty e^{ml\lambda} \\
+    =& (1-e^{-\lambda r})\sum_{l=0}^\infty (e^{m\lambda})^l \\
+    =& (1-e^{-\lambda r})\frac{1}{1-e^{m\lambda}} & (\text{Geometric series: }\sum_{n=0}^\infty t^n=\frac{1}{1-t}) \\
+    =& \frac{1-e^{-\lambda r}}{1-e^{m\lambda}} \\
+\end{align*}
+
+Show independence:
+\begin{align*}
+    & P(L=l,\ R\leq r) \\
+    =& P\left(\floor{\frac{X}{m}}=l,\ X-ml\leq r\right) \\
+    =& P\left(l \leq \frac{X}{m} < l+1,\ X-ml\leq r\right) \\
+    =& P\left(ml \leq X < ml+m,\ X-ml\leq r\right) \\
+    =& P\left(ml \leq X < ml+m,\ X\leq ml+r\right) \\
+    =& P\left(ml \leq X < \min(ml+m,ml+r)\right) \\
+    =& P\left(ml \leq X < ml+r\right) & (r \in [0,m)) \\
+    =& F_X(ml+r) - F_X(ml) \\
+    =& 1-e^{-\lambda(ml+r)} - 1 + e^{-\lambda ml} \\
+    =& e^{-\lambda ml}-e^{-\lambda (ml+r)} \\
+    =& e^{-\lambda ml}-e^{-\lambda ml}e^{-\lambda r} \\
+    =& e^{-\lambda ml}(1-e^{-\lambda r})
+\end{align*}
+while:
+\begin{align*}
+    & P(L=l) \cdot P(R\leq r) \\
+    =& p_L(l) \cdot F_R(r) \\
+    =& e^{-\lambda ml} (1-e^{-m\lambda}) \cdot \frac{1-e^{-\lambda r}}{1-e^{-m\lambda}} \\
+    =& e^{-\lambda ml} \cdot \frac{1-e^{-\lambda r}(1-e^{-m\lambda})}{1-e^{-m\lambda}} \\
+    =& e^{-\lambda ml} (1-e^{-\lambda r}) \\
+    =& P(L=l,\ R\leq r)
+\end{align*}
+\[\therefore L,R \text{ independent.}\]
 
 \section{Quizzes}
 \subsection{Quiz 1.2}
@@ -857,6 +995,55 @@ Therefore, \(Y\) is a measurable function.
 Therefore, \(Y\) is a random variable.
 \end{proof}
 
+\subsection{Repetition 1 Problem 3}
+
+\begin{sproblem}
+Let \(X_1\) and \(X_2\) be two independent standard Gaussian random variables.
+\end{sproblem}
+
+\begin{ssubproblem}
+b) Compute the characteristic function of the random variable \(Y = X_1\cdot X_2\).
+\end{ssubproblem}
+
+\begin{ssolution}
+\(X_1,X_2 \sim \mathcal{N}(0,1)\).
+\begin{align*}
+	& \varphi_Y(t) \\
+	=& E[e^{it Y}] \\
+	=& E[e^{it X_1 X_2}] \\
+	=& E[E[e^{it X_1 X_2}|X_1] & (\text{Law of total expectation})
+\end{align*}
+\begin{align*}
+	& E[e^{it x_1 X_2}|X_1=x_1] \\
+	=& E[e^{it x_1 X_2}] & (X_2,X_1\text{ independent}) \\
+	=& E[e^{i (t x_1) X_2}] & (X_2,X_1\text{ independent}) \\
+	=& \varphi_{X_2}(t x_1) \\
+	=& \varphi_{\mathcal{N}(0,1)}(t x_1) \\
+	=& e^{-\frac{1}{2}(t x_1)^2} \\
+	=& e^{-\frac{1}{2}t^2 x_1^2}
+\end{align*}
+\begin{align*}
+	& \varphi_Y(t) \\
+	=& E[E[e^{it X_1 X_2}|X_1]] \\
+	=& E[e^{-\frac{1}{2}t^2 X_1^2}] \\
+	=& \int_{\operatorname{img}(X_1)} e^{-\frac12 t^2 x^2} f_{X_1}(x) dx \\
+	=& \int_{\mathbb{R}} e^{-\frac12 t^2 x^2} \frac{1}{\sqrt{2\pi}} e^{-\frac12 x^2} dx \\
+	=& \int_{\mathbb{R}} \frac{1}{\sqrt{2\pi}} e^{-\frac12 t^2 x^2}  e^{-\frac12 x^2} dx \\
+	=& \int_{\mathbb{R}} \frac{1}{\sqrt{2\pi}} e^{-\frac12 t^2 x^2-\frac12 x^2} dx \\
+	=& \int_{\mathbb{R}} \frac{1}{\sqrt{2\pi}} e^{-\frac12 x^2 (t^2 + 1)} dx \\
+	=& \int_{\mathbb{R}} \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2/(t^2 + 1)}} dx \\
+	=& \int_{\mathbb{R}} \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2\cdot \frac{1}{t^2 + 1}}} dx \\
+	=& \int_{\mathbb{R}} \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2 \sigma^2}} dx & (\text{Let }\sigma^2=\frac{1}{t^2+1}) \\
+	=& \int_{\mathbb{R}} \frac{\sigma}{\sigma \sqrt{2\pi}} e^{-\frac{x^2}{2 \sigma^2}} dx \\
+	=& \sigma \int_{\mathbb{R}} \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{x^2}{2 \sigma^2}} dx \\
+	=& \sigma \int_{\mathbb{R}} f_Z(x)dx & (\text{Let }Z\sim \mathcal{N}(0,\sigma^2)) \\
+	=& \sigma \cdot 1 \\
+	=& \sqrt{\sigma^2} \\
+	=& \sqrt{\frac{1}{t^2+1}} \\
+	=& \frac{1}{\sqrt{t^2+1}}
+\end{align*}
+\end{ssolution}
+
 \section{Misc problems}
 \subsection{Independence vs. pairwise independence}
 \(A\) and \(B\) are independent.
@@ -969,6 +1156,89 @@ Prove \(P(a < X \leq b) = F_X(b)-F_X(a)\).
     =& F_X(b)-F_X(a)
 \end{align*}
 \end{proof}
+
+\subsection{Factorize indicator function}
+
+\begin{sproblem}
+Let
+\[D = \{(x,y)\in \mathbb{R}^2 : 0 < x < y\}\]
+Write \(\mathds{1}_D(x,y)\) as a product of two indicator functions,
+\(\mathds{1}_A(x) \cdot \mathds{1}_B(y)\).
+\end{sproblem}
+
+\begin{ssolution}
+\begin{align*}
+	& \mathds{1}_D(x,y) \\
+	& \mathds{1}_{\{(x,y): 0<x<y\}}(x,y) \\
+	& \mathds{1}_{\{(x,y): x>0\}(x,y) \cap \{(x,y): y>x\}}(x,y) \\
+	& \mathds{1}_{\{(x,y): x>0\}}(x,y) \cdot \mathds{1}_{\{(x,y): y>x\}}(x,y) & (\mathds{1}_{A \cap B} = \mathds{1}_A \cdot \mathds{1}_B) \\
+	& \mathds{1}_{\{x: x>0\}}(x) \cdot \mathds{1}_{\{(x,y): y>x\}}(x,y) \\
+	& \mathds{1}_{(0,\infty)}(x) \cdot \mathds{1}_{\{(x,y): y>x\}}(x,y) \\
+	& \mathds{1}_{(0,\infty)}(x) \cdot \casesii{1}{(x,y) \in \{(x,y):y>x\}}{0} \\
+	& \mathds{1}_{(0,\infty)}(x) \cdot \casesii{1}{y>x}{0} \\
+	& \mathds{1}_{(0,\infty)}(x) \cdot \casesii{1}{y \in (x,\infty)}{0} \\
+	& \mathds{1}_{(0,\infty)}(x) \cdot \mathds{1}_{(x,\infty)}(y)
+\end{align*}
+\end{ssolution}
+
+\subsection{Flipping indicator functions}
+
+\begin{sproblem}
+Prove that
+\[\mathds{1}_{[x,\infty)}(y) = \mathds{1}_{(-\infty,y]}(x)\]
+\end{sproblem}
+
+\begin{ssolution}
+\begin{align*}
+	& \mathds{1}_{[x,\infty)}(y) \\
+	=& \casesii{1}{y\in [x,\infty)}{0} \\
+	=& \casesii{1}{x \leq y}{0} \\
+	=& \casesii{1}{x \in (-\infty,y]}{0} \\
+	=& \mathds{1}_{(-\infty,y]}(x)
+\end{align*}
+\end{ssolution}
+
+\subsection{Set transformation}
+
+\begin{sproblem}
+Simplify
+\[T = \{(y,\frac{x}{y-x}) : 0 < x < y\}\]
+\end{sproblem}
+
+\begin{ssolution}
+Find the inverse:
+\begin{align*}
+	& (u,v) = (y,\frac{x}{y-x}) \\
+	\Rightarrow& \begin{cases}u = y \\ v = \frac{x}{y-x}\end{cases} \\
+	\Rightarrow& \begin{cases}\frac{x}{y-x} = v \\ y=u\end{cases} \\
+	\Rightarrow& \begin{cases}\frac{x}{u-x} = v \\ y=u\end{cases} \\
+	\Rightarrow& \begin{cases}x = v(u-x) \\ y=u\end{cases} \\
+	\Rightarrow& \begin{cases}x = uv-vx \\ y=u\end{cases} \\
+	\Rightarrow& \begin{cases}x+vx = uv \\ y=u\end{cases} \\
+	\Rightarrow& \begin{cases}x(v+1) = uv \\ y=u\end{cases} \\
+	\Rightarrow& \begin{cases}x = \frac{uv}{v+1} \\ y=u\end{cases} \\
+	\Rightarrow& (x,y) = (\frac{uv}{v+1}, u) \\
+\end{align*}
+\[\therefore T = \{(u,v) : 0 < \frac{uv}{v+1} < u\}\]
+Then simplify the inequality:
+\begin{align*}
+	& 0 < \frac{uv}{v+1} < u \\
+	\Rightarrow& \begin{cases}0 < \frac{uv}{v+1} \\ 0 < u \\ \frac{uv}{v+1} < u\end{cases} \\
+	\Rightarrow& \begin{cases}0 < \frac{uv}{v+1} \\ 0 < u \\ \frac{uv}{v+1} < u \\ v+1 > 0\end{cases}
+	        \vee \begin{cases}0 < \frac{uv}{v+1} \\ 0 < u \\ \frac{uv}{v+1} < u \\ v+1 < 0\end{cases} \\
+	\Rightarrow& \begin{cases}0 < uv \\ 0 < u \\ uv < u(v+1) \\ v > -1\end{cases}
+	        \vee \begin{cases}0 > uv \\ 0 < u \\ uv > u(v+1) \\ v < -1\end{cases} \\
+	\Rightarrow& \begin{cases}uv > 0 \\ u > 0 \\ uv < uv+u \\ v > -1\end{cases}
+	        \vee \begin{cases}uv < 0 \\ u > 0 \\ uv > uv+u \\ v < -1\end{cases} \\
+	\Rightarrow& \begin{cases}uv > 0 \\ u > 0 \\ u > 0 \\ v > -1\end{cases}
+	        \vee \begin{cases}uv < 0 \\ u > 0 \\ u < 0 \\ v < -1\end{cases} \\
+	\Rightarrow& \begin{cases}uv > 0 \\ u > 0 \\ v > -1\end{cases}
+	        \vee \begin{cases}u > 0 \\ u < 0\end{cases} \\
+	\Rightarrow& \begin{cases}v > 0 \\ u > 0 \\ v > -1\end{cases} \vee \bot \\
+	\Rightarrow& \begin{cases}u > 0 \\ v > 0\end{cases}
+\end{align*}
+\[\therefore T = \{(u,v) : u>0 , v>0\}\]
+\end{ssolution}
 
 \subsection{Misc problem 2 [draft]}
 

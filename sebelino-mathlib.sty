@@ -1,4 +1,10 @@
+\RequirePackage{mathtools}
 \newcommand{\casesii}[3]{\left\{\begin{array}{lr}#1 & \text{ if }#2\\#3 & \text{ else}\end{array}\right\}}
 \newcommand{\casesiie}[4]{\left\{\begin{array}{lr}#1 & \text{ if }#2\\#3 & \text{ if }#4\end{array}\right\}}
 \newcommand{\casesiii}[5]{\left\{\begin{array}{lr}#1 & \text{ if }#2\\ #3 & \text{ if }#4 \\#5 & \text{ else}\end{array}\right\}}
+\newcommand{\casesiiie}[6]{\left\{\begin{array}{lr}#1 & \text{ if }#2\\ #3 & \text{ if }#4 \\#5 & \text{ if }#6\end{array}\right\}}
 \newcommand{\hakparen}[1]{\lbrack#1\rbrack}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+\newenvironment{sproblem}{\begin{tcolorbox}[title=Problem, colback=red!5!white]}{\end{tcolorbox}}
+\newenvironment{ssubproblem}{\begin{tcolorbox}[title=Sub-problem, parbox=false, colback=red!5!white]}{\end{tcolorbox}}
+\newenvironment{ssolution}{\begin{tcolorbox}[title=Solution, breakable, parbox=false, colback=white]}{\end{tcolorbox}}
